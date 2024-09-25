@@ -32,8 +32,8 @@ jobs:
                   commit_message: ${{ github.event.head_commit.message }}
                   
             - name: Search
-              uses: caibingcheng/hugo-algolia2@v1
-              #uses: jkjoy/hugo-algolia2@1.0.2
+              #uses: caibingcheng/hugo-algolia2@v1
+              uses: jkjoy/hugo-algolia2@1.0.2
               with:
                    input: "content/posts/**"
                    index: "hugo-blog"
