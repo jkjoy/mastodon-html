@@ -37,5 +37,5 @@ jobs:
               with:
                    input: "content/posts/**"
                    index: "hugo-blog"
-                   apikey: ${{ secrets.ALGOLIA_WRITE_KEY }}
+                   apikey: ${{ secrets.ALGOLIA_ADMIN_KEY }}
                    appid: "LG3447W3ML"
