@@ -16,15 +16,15 @@ window.addEventListener("DOMContentLoaded", event => {
                 helper
                 .setQuery(e.currentTarget.value) // update the parameters
                 .search(); // launch the query
-          });
+            });
         },
     });
 
     search.addWidget({
         render: function (opts) {
-            let term = opts.state.query
+            let term = opts.state.query;
             if (!term) {
-                return
+                return;
             }
 
             const results = opts.results.hits;
@@ -46,9 +46,9 @@ window.addEventListener("DOMContentLoaded", event => {
             title.id = "search-results";
             title.className = "list-title";
 
-            if (results.length == 0) {
+            if (results.length === 0) {
                 title.textContent = "{{ i18n "searchResultsNone" (dict "Term" "{}") }}".replace("{}", term);
-            } else if (results.length == 1) {
+            } else if (results.length === 1) {
                 title.textContent = "{{ i18n "searchResultsTitle" (dict "Count" 1 "Term" "{}") }}".replace("{}", term);
             } else {
                 title.textContent = "{{ i18n "searchResultsTitle" (dict "Count" 13579 "Term" "{}") }}".replace("{}", term).replace("13579", results.length);
@@ -62,7 +62,7 @@ window.addEventListener("DOMContentLoaded", event => {
                 let element = template.content.cloneNode(true);
                 element.querySelector(".summary-title-link").href = element.querySelector(".read-more-link").href = result.url;
                 element.querySelector(".summary-title-link").textContent = result.title;
-                element.querySelector(".summary").textContent = truncateToEndOfSentence(result.summary, 70);
+                element.querySelector(".summary").textContent = truncateToEndOfSentence(result.summary || '', 70);
                 target.appendChild(element);
             }
             title.scrollIntoView(true);
@@ -78,10 +78,8 @@ window.addEventListener("DOMContentLoaded", event => {
 
     search.start();
 
-    // This matches Hugo's own summary logic:
-    // https://github.com/gohugoio/hugo/blob/b5f39d23b86f9cb83c51da9fe4abb4c19c01c3b7/helpers/content.go#L543
-    function truncateToEndOfSentence(text, minWords)
-    {
+    function truncateToEndOfSentence(text, minWords) {
+        if (!text) return ''; // 确保 text 不为空
         let match;
         let result = "";
         let wordCount = 0;
@@ -90,16 +88,13 @@ window.addEventListener("DOMContentLoaded", event => {
             wordCount++;
             if (wordCount <= minWords) {
                 result += match[0];
-            }
-            else
-            {
+            } else {
                 let char1 = match[1][match[1].length - 1];
                 let char2 = match[2][0];
                 if (/[.?!"]/.test(char1) || char2 == "\n") {
                     result += match[1];
                     break;
-                }
-                else {
+                } else {
                     result += match[0];
                 }
             }
