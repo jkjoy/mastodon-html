@@ -36,7 +36,7 @@
 ##### 1. `clone`本仓库或[下载](https://github.com/eallion/memos.top/archive/refs/heads/main.zip)后部署
 
 ```bash
-git clone https://github.com/jkjoy/memos.top
+git clone https://github.com/jkftyb/memos.top
 ```
 
 ##### 2. 设置
